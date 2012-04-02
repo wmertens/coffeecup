@@ -338,7 +338,7 @@ exports.compile = (source, hardcoded_locals, options) ->
           code.append ' />'
         else
           code.append '>'
-    
+
         code.push contents if contents?
         if not (name in coffeecup.self_closing)
           code.append "</#{name}>"

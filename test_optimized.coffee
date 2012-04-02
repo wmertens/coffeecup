@@ -1,6 +1,6 @@
 #!/usr/bin/env coffee
 
-ck = require "./src/coffeecup"
+cc = require "./src/coffeecup"
 
 tests =
   'Literal text':
@@ -66,7 +66,7 @@ tests =
     template: 'h1 "harcoded: " + obj.foo'
     run: ->
       obj = {foo: 'bar'}
-      @compiled = ck.compile(@template, hardcode: {obj})
+      @compiled = cc.compile(@template, hardcode: {obj})
       @expected = '<h1>harcoded: bar</h1>'
       @result = @compiled()
       @success = @result is @expected
@@ -137,11 +137,11 @@ tests =
   'ID/class shortcut (no string contents)':
     template: "img '#myid.myclass', src: '/pic.png'"
     expected: '<img id="myid" class="myclass" src="/pic.png" />'
-      
+
   'Attribute values':
     template: "br vrai: yes, faux: no, undef: @foo, nil: null, str: 'str', num: 42, arr: [1, 2, 3].join(','), obj: {foo: 'bar'}, func: ->"
     expected: '<br vrai="vrai" str="str" num="42" arr="1,2,3" obj-foo="bar" func="(function(){}).call(this);" />'
-    
+
   'IE conditionals':
     template: """
       html ->
@@ -151,19 +151,7 @@ tests =
             link href: 'ie.css', rel: 'stylesheet'
     """
     expected: '<html><head><title>test</title><!--[if gte IE8]><link href="ie.css" rel="stylesheet" /><![endif]--></head></html>'
-    #expected: '''
-    #  <html>
-    #    <head>
-    #      <title>test</title>
-    #      <!--[if gte IE8]>
-    #        <link href="ie.css" rel="stylesheet" />
-    #      <![endif]-->
-    #    </head>
-    #  </html>
-    #  
-    #'''
-    #params: {format: yes}
-    
+
   'yield':
     template: "p \"This text could use \#{yield -> strong -> a href: '/', 'a link'}.\""
     expected: '<p>This text could use <strong><a href="/">a link</a></strong>.</p>'
@@ -193,7 +181,7 @@ render = cc.render
       if test.run
         test.run()
       else
-        test.result = ck.render(test.template, test.params)
+        test.result = cc.render(test.template, test.params)
         test.success = test.result is test.expected
         
       if test.success
