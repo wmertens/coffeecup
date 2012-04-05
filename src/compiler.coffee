@@ -7,39 +7,11 @@ coffeecup = null
 exports.setup = (cc) ->
   coffeecup = cc
 
+# Output of coffee -pbc src/skeleton.coffee | node_modules/uglify-js/bin/uglifyjs
+# This could be generated from the Cake file and included somehow
+# Alternatively it could be generated at load time and inserted into the AST as nodes
 skeleton = '''
-  var __cc = {
-    buffer: ''
-  };
-  var text = function(txt) {
-    if (typeof txt === 'string' || txt instanceof String) {
-      __cc.buffer += txt;
-    } else if (typeof txt === 'number' || txt instanceof Number) {
-      __cc.buffer += txt.toString();
-    }
-  };
-  var h = function(txt) {
-    var escaped;
-    if (typeof txt === 'string' || txt instanceof String) {
-      escaped = txt.replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;');
-    } else {
-      escaped = txt;
-    }
-    return escaped;
-  };
-  var yield = function(f) {
-    var temp_buffer = '';
-    var old_buffer = __cc.buffer;
-    __cc.buffer = temp_buffer;
-    f();
-    temp_buffer = __cc.buffer;
-    __cc.buffer = old_buffer;
-    return temp_buffer;
-  };
-
+var h,text,yield,__cc;__cc={buffer:""},text=function(a){__cc.buffer+=a;return},h=function(a){var b;return b=typeof a=="string"||a instanceof String?b:b.toString(),b.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")},yield=function(a){var b,c;return b=__cc.buffer,__cc.buffer="",a(),c=__cc.buffer,__cc.buffer=b,c};
 '''
 
 call_bound_func = (func) ->

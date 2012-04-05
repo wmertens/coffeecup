@@ -327,7 +327,7 @@ coffeecup.compile = (template, options = {}) ->
 
   tag_functions += "var #{tags_used.join ','};"
   for t in tags_used
-    tag_functions += "#{t} = function(){return __cc.tag('#{t}', arguments);};"
+    tag_functions += "#{t}=function(){__cc.tag('#{t}',arguments);};"
 
   # Main function assembly.
   code = tag_functions + hardcoded_locals + skeleton
