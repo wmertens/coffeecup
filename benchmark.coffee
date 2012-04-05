@@ -237,3 +237,15 @@ if haml
   benchmark 'haml-js (precompiled)', -> haml_template_compiled data
 if eco
   benchmark 'Eco (precompiled)', -> eco_compiled_template data
+
+log "\nRuntime, not precompiled:\n"
+
+benchmark 'coffeecup (function, cache on)', -> coffeecup.render coffeecup_template, data, cache: on
+benchmark 'coffeecup (function, cache on, optimized)', -> coffeecup.render coffeecup_template, data, cache: on, optimize: on
+if jade
+  benchmark 'Jade (cache on)', -> jade.render jade_template, locals: data, cache: on, filename: 'test'
+if ejs
+  benchmark 'ejs (cache on)', -> ejs.render ejs_template, locals: data, cache: on, filename: 'test'
+if eco
+  benchmark 'Eco', -> eco.render eco_template, data
+
